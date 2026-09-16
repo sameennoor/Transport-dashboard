@@ -5,424 +5,144 @@
 
     <meta charset="UTF-8">
 
-    <meta name="viewport"
-        content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <meta name="description"
-        content="Transit Operations Command Center - Transport Management Dashboard">
+        content="Transit Operations Control Center - Professional Transport Management System dashboard for fleet, routes, passengers, maintenance and operational analytics.">
 
-    <meta name="theme-color"
-        content="#0D2528">
+    <meta name="keywords"
+        content="transport management system, transit dashboard, fleet management, route management, transportation analytics">
 
-    <title>Transit Operations Command Center</title>
+    <meta name="author" content="Sameen Noor">
 
+    <title>Transit Operations | Transport Management System</title>
 
-    <!-- =====================================================
-         TAILWIND CSS
-    ====================================================== -->
-
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
 
-
-    <!-- =====================================================
-         TAILWIND CONFIG
-    ====================================================== -->
-
-    <script>
-
-        tailwind.config = {
-
-            theme: {
-
-                extend: {
-
-                    colors: {
-
-                        transit: "#0D2528",
-
-                        transitLight: "#163B3D",
-
-                        teal: "#3D817C",
-
-                        tealLight: "#72B7AD",
-
-                        ivory: "#F4F1E9",
-
-                        surface: "#FFFFFF",
-
-                        mist: "#E8EEEB",
-
-                        textMain: "#172829",
-
-                        muted: "#687775",
-
-                        amber: "#E8B45B",
-
-                        orange: "#D66F57",
-
-                        green: "#4C9470"
-
-                    },
-
-                    fontFamily: {
-
-                        sans: [
-                            "Inter",
-                            "ui-sans-serif",
-                            "system-ui",
-                            "sans-serif"
-                        ]
-
-                    }
-
-                }
-
-            }
-
-        }
-
-    </script>
-
-
-    <!-- =====================================================
-         FONT
-    ====================================================== -->
-
-    <link rel="preconnect"
-        href="https://fonts.googleapis.com">
-
-    <link rel="preconnect"
-        href="https://fonts.gstatic.com"
-        crossorigin>
-
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
-        rel="stylesheet">
-
-
-    <!-- =====================================================
-         CHART.JS
-    ====================================================== -->
-
+    <!-- Chart.js -->
     <script
-        src="https://cdn.jsdelivr.net/npm/chart.js"
-        defer>
+        src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js">
     </script>
 
-
-    <!-- =====================================================
-         CUSTOM CSS
-    ====================================================== -->
-
-    <link rel="stylesheet"
-        href="style.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
 
 </head>
 
 
-<body class="bg-ivory text-textMain font-sans">
-
+<body>
 
     <!-- =====================================================
-         TOP HEADER
+         MOBILE HEADER
     ====================================================== -->
 
-    <header
-        class="top-header">
+    <header class="mobile-header">
 
-
-        <!-- BRAND -->
-
-        <div
-            class="brand-area">
-
-
-            <div
-                class="brand-logo">
-
-                TO
-
-            </div>
-
-
-            <div>
-
-                <div
-                    class="brand-mini">
-
-                    TRANSIT
-
-                </div>
-
-                <div
-                    class="brand-title">
-
-                    Operations Command
-
-                </div>
-
-            </div>
-
+        <div class="mobile-brand">
+            <span class="brand-logo">T</span>
+            <strong>TRANSIT</strong>
         </div>
 
-
-
-        <!-- HEADER CENTER -->
-
-        <div
-            class="header-center">
-
-
-            <div
-                class="header-location">
-
-                <span
-                    class="header-label">
-
-                    NETWORK
-
-                </span>
-
-                <strong>
-
-                    Central Urban Region
-
-                </strong>
-
-            </div>
-
-
-            <div
-                class="header-divider">
-            </div>
-
-
-            <div>
-
-                <span
-                    class="header-label">
-
-                    DATE
-
-                </span>
-
-                <strong
-                    id="todayDate">
-
-                    16 SEP 2026
-
-                </strong>
-
-            </div>
-
-        </div>
-
-
-
-        <!-- HEADER RIGHT -->
-
-        <div
-            class="header-right">
-
-
-            <div
-                class="live-status">
-
-                <span
-                    class="live-dot">
-                </span>
-
-                <span>
-                    NETWORK LIVE
-                </span>
-
-            </div>
-
-
-            <div
-                class="header-time"
-                id="currentTime">
-
-                09:42:18
-
-            </div>
-
-
-            <button
-                class="header-icon"
-                title="Notifications">
-
-                ♢
-
-            </button>
-
-
-            <div
-                class="profile">
-
-                SN
-
-            </div>
-
-        </div>
+        <button id="mobileMenuBtn" class="mobile-menu">
+            ☰
+        </button>
 
     </header>
 
 
 
-    <!-- =====================================================
-         PAGE
-    ====================================================== -->
-
-    <div
-        class="dashboard-shell">
+    <div class="app-shell">
 
 
         <!-- =================================================
-             LEFT NAVIGATION
+             SIDEBAR
         ================================================== -->
 
-        <aside
-            class="sidebar">
-
+        <aside id="sidebar" class="sidebar">
 
             <div>
 
+                <div class="brand">
 
-                <div
-                    class="sidebar-heading">
+                    <div class="brand-logo">
+                        T
+                    </div>
 
-                    OPERATIONS
+                    <div>
+                        <strong>TRANSIT</strong>
+                        <small>OPERATIONS</small>
+                    </div>
+
+                </div>
+
+
+                <div class="network-status">
+
+                    <span class="online-dot"></span>
+
+                    <div>
+                        <strong>Network Online</strong>
+                        <small>All systems operational</small>
+                    </div>
 
                 </div>
 
 
                 <nav>
 
+                    <p class="nav-title">
+                        CONTROL CENTER
+                    </p>
 
-                    <a
-                        href="#overview"
-                        class="side-link active">
-
-                        <span>◉</span>
-
+                    <a href="#" class="nav-link active">
+                        <span>⌂</span>
                         Overview
-
                     </a>
 
+                    <a href="#" class="nav-link">
+                        <span>⇄</span>
+                        Dispatch
+                    </a>
 
-                    <a
-                        href="#live-network"
-                        class="side-link">
-
+                    <a href="#" class="nav-link">
                         <span>⌁</span>
-
-                        Live Network
-
-                    </a>
-
-
-                    <a
-                        href="#routes"
-                        class="side-link">
-
-                        <span>◎</span>
-
                         Routes
-
                     </a>
 
-
-                    <a
-                        href="#fleet"
-                        class="side-link">
-
+                    <a href="#" class="nav-link">
                         <span>▣</span>
-
                         Fleet
-
                     </a>
 
-
-                    <a
-                        href="#drivers"
-                        class="side-link">
-
-                        <span>◌</span>
-
-                        Drivers
-
-                    </a>
-
-
-                    <a
-                        href="#maintenance"
-                        class="side-link">
-
-                        <span>△</span>
-
+                    <a href="#" class="nav-link">
+                        <span>⚙</span>
                         Maintenance
-
                     </a>
 
 
-                </nav>
+                    <p class="nav-title nav-space">
+                        MANAGEMENT
+                    </p>
 
-
-
-                <div
-                    class="sidebar-separator">
-                </div>
-
-
-
-                <div
-                    class="sidebar-heading">
-
-                    ANALYTICS
-
-                </div>
-
-
-                <nav>
-
-
-                    <a
-                        href="#analytics"
-                        class="side-link">
-
-                        <span>⌁</span>
-
-                        Performance
-
+                    <a href="#" class="nav-link">
+                        <span>◷</span>
+                        Schedules
                     </a>
 
-
-                    <a
-                        href="#fuel"
-                        class="side-link">
-
-                        <span>◒</span>
-
-                        Fuel & Efficiency
-
+                    <a href="#" class="nav-link">
+                        <span>♙</span>
+                        Drivers
                     </a>
 
+                    <a href="#" class="nav-link">
+                        <span>▤</span>
+                        Reports
+                    </a>
 
-                    <a
-                        href="#alerts"
-                        class="side-link">
-
-                        <span>!</span>
-
-                        Alerts
-
-                        <span
-                            class="alert-count">
-
-                            7
-
-                        </span>
-
+                    <a href="#" class="nav-link">
+                        <span>◫</span>
+                        Analytics
                     </a>
 
                 </nav>
@@ -430,44 +150,38 @@
             </div>
 
 
+            <div class="sidebar-bottom">
 
-            <!-- SYSTEM -->
+                <div class="system-health">
 
-            <div
-                class="system-box">
+                    <div class="health-heading">
+                        <span>System Health</span>
+                        <strong>96%</strong>
+                    </div>
 
+                    <div class="health-bar">
+                        <span></span>
+                    </div>
 
-                <div
-                    class="system-top">
-
-                    <span>
-
-                        System Health
-
-                    </span>
-
-                    <strong>
-
-                        98%
-
-                    </strong>
+                    <small>Last synchronization 2 min ago</small>
 
                 </div>
 
 
-                <div
-                    class="system-bar">
+                <div class="admin-profile">
 
-                    <span></span>
+                    <div class="profile-avatar">
+                        SN
+                    </div>
+
+                    <div>
+                        <strong>Operations Admin</strong>
+                        <small>Administrator</small>
+                    </div>
+
+                    <span>•••</span>
 
                 </div>
-
-
-                <p>
-
-                    All core services operational
-
-                </p>
 
             </div>
 
@@ -479,206 +193,209 @@
              MAIN
         ================================================== -->
 
-        <main
-            class="main-content"
-            id="overview">
+        <main class="main-content">
 
 
             <!-- =================================================
-                 INTRO
+                 HEADER
             ================================================== -->
 
-            <section
-                class="page-intro">
-
+            <header class="page-header">
 
                 <div>
 
-                    <p
-                        class="eyebrow">
-
-                        DAILY OPERATIONS
-
+                    <p class="eyebrow">
+                        WEDNESDAY · 16 SEPTEMBER 2026
                     </p>
-
 
                     <h1>
-
-                        Transit Command Center
-
+                        Transport Control Center
                     </h1>
 
-
-                    <p
-                        class="intro-text">
-
-                        Monitor fleet movement, passenger demand,
-                        route performance and service conditions
-                        from one operational view.
-
+                    <p class="header-description">
+                        Monitor network activity, fleet performance,
+                        passenger demand and daily operations.
                     </p>
 
                 </div>
 
 
+                <div class="header-tools">
 
-                <!-- ACTIONS -->
+                    <div class="live-time">
 
-                <div
-                    class="intro-actions">
+                        <span></span>
 
+                        <strong id="liveClock">
+                            09:42:18
+                        </strong>
 
-                    <button
-                        class="secondary-btn">
+                        LIVE
 
-                        ↓ Export Report
+                    </div>
 
+                    <button class="tool-button">
+                        ♢
+                        <b>7</b>
                     </button>
 
-
-                    <button
-                        class="primary-btn">
-
-                        + Dispatch Vehicle
-
+                    <button class="tool-button">
+                        ⚙
                     </button>
 
                 </div>
+
+            </header>
+
+
+
+            <!-- =================================================
+                 ACTION BAR
+            ================================================== -->
+
+            <section class="action-bar">
+
+                <div class="search">
+
+                    <span>⌕</span>
+
+                    <input
+                        id="searchInput"
+                        type="search"
+                        placeholder="Search route, vehicle or driver..."
+                    >
+
+                </div>
+
+
+                <select id="statusFilter">
+
+                    <option value="all">
+                        All Status
+                    </option>
+
+                    <option value="on-time">
+                        On Time
+                    </option>
+
+                    <option value="boarding">
+                        Boarding
+                    </option>
+
+                    <option value="delayed">
+                        Delayed
+                    </option>
+
+                    <option value="completed">
+                        Completed
+                    </option>
+
+                </select>
+
+
+                <button class="primary-action">
+                    + Schedule Route
+                </button>
+
+                <button class="secondary-action">
+                    Export Report
+                </button>
 
             </section>
 
 
 
             <!-- =================================================
-                 COMMAND METRICS
+                 KPI STRIP
             ================================================== -->
 
-            <section
-                class="command-metrics">
+            <section class="kpi-grid">
+
+                <div class="kpi-card">
+
+                    <div class="kpi-icon teal">
+                        ⇄
+                    </div>
+
+                    <div>
+                        <span>ACTIVE VEHICLES</span>
+                        <strong>48</strong>
+                        <small class="up">↑ 8.4%</small>
+                    </div>
+
+                </div>
 
 
-                <div
-                    class="command-metric">
+                <div class="kpi-card">
+
+                    <div class="kpi-icon green">
+                        ✓
+                    </div>
+
+                    <div>
+                        <span>ON-TIME RATE</span>
+                        <strong>92%</strong>
+                        <small class="up">↑ 3.2%</small>
+                    </div>
+
+                </div>
 
 
-                    <div
-                        class="metric-icon teal-icon">
+                <div class="kpi-card">
 
+                    <div class="kpi-icon blue">
                         ◉
-
                     </div>
 
-
                     <div>
-
-                        <p>
-                            Active Vehicles
-                        </p>
-
-                        <strong>
-                            48
-                        </strong>
-
-                        <span class="metric-positive">
-                            80% of fleet
-                        </span>
-
+                        <span>PASSENGERS</span>
+                        <strong>8.42K</strong>
+                        <small class="up">↑ 6.8%</small>
                     </div>
 
                 </div>
 
 
+                <div class="kpi-card">
 
-                <div
-                    class="command-metric">
-
-
-                    <div
-                        class="metric-icon green-icon">
-
-                        ↗
-
-                    </div>
-
-
-                    <div>
-
-                        <p>
-                            Trips Completed
-                        </p>
-
-                        <strong>
-                            286
-                        </strong>
-
-                        <span class="metric-positive">
-                            +12.4% today
-                        </span>
-
-                    </div>
-
-                </div>
-
-
-
-                <div
-                    class="command-metric">
-
-
-                    <div
-                        class="metric-icon amber-icon">
-
-                        ≋
-
-                    </div>
-
-
-                    <div>
-
-                        <p>
-                            Passenger Load
-                        </p>
-
-                        <strong>
-                            8.4K
-                        </strong>
-
-                        <span class="metric-positive">
-                            +8.2% today
-                        </span>
-
-                    </div>
-
-                </div>
-
-
-
-                <div
-                    class="command-metric">
-
-
-                    <div
-                        class="metric-icon orange-icon">
-
+                    <div class="kpi-icon orange">
                         ◷
-
                     </div>
 
+                    <div>
+                        <span>AVG DELAY</span>
+                        <strong>04m</strong>
+                        <small class="up">↓ 1.2m</small>
+                    </div>
+
+                </div>
+
+
+                <div class="kpi-card">
+
+                    <div class="kpi-icon purple">
+                        ◈
+                    </div>
 
                     <div>
+                        <span>ACTIVE ROUTES</span>
+                        <strong>18</strong>
+                        <small>3 peak routes</small>
+                    </div>
 
-                        <p>
-                            Avg. Delay
-                        </p>
+                </div>
 
-                        <strong>
-                            04m
-                        </strong>
 
-                        <span class="metric-warning">
-                            02 critical routes
-                        </span>
+                <div class="kpi-card">
 
+                    <div class="kpi-icon red">
+                        !
+                    </div>
+
+                    <div>
+                        <span>OPEN INCIDENTS</span>
+                        <strong>07</strong>
+                        <small class="danger">2 critical</small>
                     </div>
 
                 </div>
@@ -688,64 +405,78 @@
 
 
             <!-- =================================================
-                 LIVE NETWORK
+                 NETWORK COMMAND AREA
             ================================================== -->
 
-            <section
-                id="live-network"
-                class="network-section">
+            <section class="command-grid">
 
 
-                <!-- SECTION HEADER -->
+                <!-- NETWORK VISUAL -->
 
-                <div
-                    class="section-header">
+                <div class="network-map">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1570125909232-eb263c188f7e?auto=format&fit=crop&w=1400&q=80"
+                        alt="Urban public transportation network"
+                        width="1400"
+                        height="800"
+                        fetchpriority="high"
+                    >
+
+                    <div class="map-overlay"></div>
 
 
-                    <div>
+                    <div class="map-content">
 
-                        <p
-                            class="eyebrow">
-
-                            LIVE NETWORK
-
-                        </p>
+                        <span class="live-label">
+                            ● LIVE NETWORK
+                        </span>
 
                         <h2>
-
-                            Fleet movement
-
+                            City Transit Grid
                         </h2>
+
+                        <p>
+                            18 routes operating · 48 vehicles active
+                        </p>
 
                     </div>
 
 
-                    <div
-                        class="map-controls">
+                    <div class="route-route route-a"></div>
+                    <div class="route-route route-b"></div>
+                    <div class="route-route route-c"></div>
 
 
-                        <button
-                            class="map-filter active">
+                    <span class="map-marker marker-a">
+                        R-12
+                    </span>
 
-                            All
+                    <span class="map-marker marker-b">
+                        R-08
+                    </span>
 
-                        </button>
-
-
-                        <button
-                            class="map-filter">
-
-                            Active
-
-                        </button>
+                    <span class="map-marker marker-c">
+                        R-21
+                    </span>
 
 
-                        <button
-                            class="map-filter">
+                    <div class="map-legend">
 
+                        <span>
+                            <i class="green-dot"></i>
+                            On route
+                        </span>
+
+                        <span>
+                            <i class="yellow-dot"></i>
                             Delayed
+                        </span>
 
-                        </button>
+                        <span>
+                            <i class="red-dot"></i>
+                            Incident
+                        </span>
 
                     </div>
 
@@ -753,349 +484,93 @@
 
 
 
-                <!-- NETWORK GRID -->
+                <!-- FLEET COMMAND -->
 
-                <div
-                    class="network-grid">
+                <div class="fleet-command">
+
+                    <div class="section-top">
+
+                        <div>
+                            <span class="section-label">
+                                FLEET COMMAND
+                            </span>
+
+                            <h2>
+                                Vehicle Status
+                            </h2>
+                        </div>
+
+                        <button>•••</button>
+
+                    </div>
 
 
-                    <!-- MAP -->
+                    <div class="fleet-main-number">
+                        48
+                        <span>/ 60</span>
+                    </div>
 
-                    <div
-                        class="network-map">
+                    <p class="muted">
+                        Vehicles currently operating
+                    </p>
 
+
+                    <div class="fleet-utilization">
+
+                        <div>
+                            <span>Fleet utilization</span>
+                            <strong>80%</strong>
+                        </div>
+
+                        <div class="large-progress">
+                            <span></span>
+                        </div>
+
+                    </div>
+
+
+                    <div class="fleet-status-grid">
+
+                        <div>
+                            <i class="dot active"></i>
+                            <strong>48</strong>
+                            <span>Active</span>
+                        </div>
+
+                        <div>
+                            <i class="dot idle"></i>
+                            <strong>07</strong>
+                            <span>Idle</span>
+                        </div>
+
+                        <div>
+                            <i class="dot service"></i>
+                            <strong>05</strong>
+                            <span>Service</span>
+                        </div>
+
+                    </div>
+
+
+                    <div class="fleet-image">
 
                         <img
-                            src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=1400&q=80"
-                            alt="Public transport vehicle"
-                            width="1400"
-                            height="900"
+                            src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=800&q=80"
+                            alt="Transit vehicle fleet"
+                            width="800"
+                            height="450"
                             loading="lazy"
                             decoding="async"
-                            class="map-image">
-
-
-                        <div
-                            class="map-overlay">
-                        </div>
-
-
-                        <!-- MAP GRID -->
-
-                        <div
-                            class="map-grid">
-                        </div>
-
-
-                        <!-- ROUTE LINES -->
-
-                        <div
-                            class="route-line-map route-one">
-                        </div>
-
-                        <div
-                            class="route-line-map route-two">
-                        </div>
-
-                        <div
-                            class="route-line-map route-three">
-                        </div>
-
-
-                        <!-- STOPS -->
-
-                        <span
-                            class="map-stop stop-a">
-                        </span>
-
-                        <span
-                            class="map-stop stop-b">
-                        </span>
-
-                        <span
-                            class="map-stop stop-c">
-                        </span>
-
-                        <span
-                            class="map-stop stop-d">
-                        </span>
-
-                        <span
-                            class="map-stop stop-e">
-                        </span>
-
-
-                        <!-- VEHICLES -->
-
-                        <button
-                            class="vehicle-marker vehicle-1"
-                            data-vehicle="TR-204">
-
-                            204
-
-                        </button>
-
-
-                        <button
-                            class="vehicle-marker vehicle-2"
-                            data-vehicle="TR-118">
-
-                            118
-
-                        </button>
-
-
-                        <button
-                            class="vehicle-marker vehicle-3 delayed-marker"
-                            data-vehicle="TR-307">
-
-                            307
-
-                        </button>
-
-
-                        <button
-                            class="vehicle-marker vehicle-4"
-                            data-vehicle="TR-415">
-
-                            415
-
-                        </button>
-
-
-                        <!-- MAP LABEL -->
-
-                        <div
-                            class="map-label">
-
-                            <span
-                                class="live-dot">
-                            </span>
-
-                            LIVE VEHICLE POSITIONS
-
-                        </div>
-
-
-                        <!-- MAP LEGEND -->
-
-                        <div
-                            class="map-legend">
-
-
-                            <div>
-
-                                <span
-                                    class="legend-dot active-dot">
-                                </span>
-
-                                Active
-
-                            </div>
-
-
-                            <div>
-
-                                <span
-                                    class="legend-dot delayed-dot">
-                                </span>
-
-                                Delayed
-
-                            </div>
-
-
-                            <div>
-
-                                <span
-                                    class="legend-dot stop-dot">
-                                </span>
-
-                                Stop
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-
-
-                    <!-- FLEET SUMMARY -->
-
-                    <div
-                        class="fleet-summary"
-                        id="fleet">
-
-
-                        <div
-                            class="fleet-heading">
-
-
-                            <div>
-
-                                <p
-                                    class="eyebrow light">
-
-                                    FLEET STATUS
-
-                                </p>
-
-                                <h3>
-
-                                    60 vehicles
-
-                                </h3>
-
-                            </div>
-
-
-                            <span
-                                class="fleet-date">
-
-                                TODAY
-
-                            </span>
-
-                        </div>
-
-
-                        <!-- BIG NUMBER -->
-
-                        <div
-                            class="fleet-big-number">
-
-                            80%
+                        >
+
+                        <div>
+                            <strong>
+                                Fleet efficiency
+                            </strong>
 
                             <span>
-                                available
+                                +8.4% compared with last month
                             </span>
-
-                        </div>
-
-
-                        <!-- FLEET BARS -->
-
-                        <div
-                            class="fleet-status-list">
-
-
-                            <div>
-
-                                <div
-                                    class="fleet-status-label">
-
-                                    <span>
-                                        Active
-                                    </span>
-
-                                    <strong>
-                                        48
-                                    </strong>
-
-                                </div>
-
-
-                                <div
-                                    class="fleet-progress">
-
-                                    <span
-                                        class="active-progress">
-                                    </span>
-
-                                </div>
-
-                            </div>
-
-
-
-                            <div>
-
-                                <div
-                                    class="fleet-status-label">
-
-                                    <span>
-                                        Idle
-                                    </span>
-
-                                    <strong>
-                                        07
-                                    </strong>
-
-                                </div>
-
-
-                                <div
-                                    class="fleet-progress">
-
-                                    <span
-                                        class="idle-progress">
-                                    </span>
-
-                                </div>
-
-                            </div>
-
-
-
-                            <div>
-
-                                <div
-                                    class="fleet-status-label">
-
-                                    <span>
-                                        Maintenance
-                                    </span>
-
-                                    <strong>
-                                        05
-                                    </strong>
-
-                                </div>
-
-
-                                <div
-                                    class="fleet-progress">
-
-                                    <span
-                                        class="service-progress">
-                                    </span>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-
-                        <!-- VEHICLE IMAGE -->
-
-                        <div
-                            class="fleet-image">
-
-
-                            <img
-                                src="https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=700&q=80"
-                                alt="Transit fleet vehicle"
-                                width="700"
-                                height="450"
-                                loading="lazy"
-                                decoding="async">
-
-
-                            <div
-                                class="fleet-image-overlay">
-
-                                <span>
-                                    FLEET 2026
-                                </span>
-
-                                <strong>
-                                    48 ACTIVE ON ROAD
-                                </strong>
-
-                            </div>
-
                         </div>
 
                     </div>
@@ -1107,486 +582,265 @@
 
 
             <!-- =================================================
-                 LIVE OPERATIONS TABLE
+                 TODAY NETWORK
             ================================================== -->
 
-            <section
-                class="operations-section"
-                id="routes">
+            <section class="white-section">
 
-
-                <div
-                    class="section-header">
-
+                <div class="section-heading">
 
                     <div>
 
-                        <p
-                            class="eyebrow">
-
+                        <span class="section-label">
                             LIVE OPERATIONS
-
-                        </p>
+                        </span>
 
                         <h2>
-
-                            Today's network
-
+                            Today's Network
                         </h2>
 
-                    </div>
-
-
-                    <div
-                        class="table-tools">
-
-
-                        <div
-                            class="search-box">
-
-                            <span>
-                                ⌕
-                            </span>
-
-                            <input
-                                type="search"
-                                id="searchInput"
-                                placeholder="Search route, vehicle or driver">
-
-                        </div>
-
-
-                        <select
-                            id="statusFilter">
-
-                            <option value="all">
-                                All status
-                            </option>
-
-                            <option value="On Route">
-                                On Route
-                            </option>
-
-                            <option value="Boarding">
-                                Boarding
-                            </option>
-
-                            <option value="Delayed">
-                                Delayed
-                            </option>
-
-                        </select>
+                        <p>
+                            Current route assignments and vehicle activity
+                        </p>
 
                     </div>
+
+                    <button class="text-button">
+                        View all routes →
+                    </button>
 
                 </div>
 
 
+                <div class="table-scroll">
 
-                <div
-                    class="table-wrapper">
-
-
-                    <table>
+                    <table id="networkTable">
 
                         <thead>
 
                             <tr>
-
-                                <th>
-                                    ROUTE
-                                </th>
-
-                                <th>
-                                    VEHICLE
-                                </th>
-
-                                <th>
-                                    DRIVER
-                                </th>
-
-                                <th>
-                                    NEXT STOP
-                                </th>
-
-                                <th>
-                                    LOAD
-                                </th>
-
-                                <th>
-                                    DEPARTURE
-                                </th>
-
-                                <th>
-                                    STATUS
-                                </th>
-
-                                <th>
-                                    ACTION
-                                </th>
-
+                                <th>ROUTE</th>
+                                <th>VEHICLE</th>
+                                <th>DRIVER</th>
+                                <th>DEPARTURE</th>
+                                <th>OCCUPANCY</th>
+                                <th>STATUS</th>
                             </tr>
 
                         </thead>
 
 
-                        <tbody id="operationsTable">
+                        <tbody>
 
 
-                            <tr
-                                class="operation-row">
-
+                            <tr data-status="on-time">
 
                                 <td>
-
-                                    <strong>
-                                        R-04
-                                    </strong>
-
-                                    <small>
-                                        Central → University
-                                    </small>
-
+                                    <strong>R-12</strong>
+                                    <small>Central → Airport</small>
                                 </td>
 
-
                                 <td>
-                                    TR-204
+                                    TR-104
                                 </td>
 
-
                                 <td>
-                                    A. Khan
-                                </td>
-
-
-                                <td>
-                                    University Gate
-                                </td>
-
-
-                                <td>
-
-                                    <div
-                                        class="load-cell">
-
-                                        <span>
-                                            82%
-                                        </span>
-
-                                        <div
-                                            class="load-bar">
-
-                                            <span
-                                                style="width:82%">
-                                            </span>
-
-                                        </div>
-
-                                    </div>
-
-                                </td>
-
-
-                                <td>
-                                    09:50
-                                </td>
-
-
-                                <td>
-
-                                    <span
-                                        class="status-pill on-route">
-
-                                        On Route
-
+                                    <span class="driver">
+                                        <i>AK</i>
+                                        Ahmed Khan
                                     </span>
-
                                 </td>
 
+                                <td>
+                                    09:50 AM
+                                </td>
 
                                 <td>
+                                    <div class="occupancy">
+                                        <span>
+                                            <i style="width:78%"></i>
+                                        </span>
+                                        78%
+                                    </div>
+                                </td>
 
-                                    <button
-                                        class="view-btn"
-                                        data-vehicle="TR-204">
-
-                                        View
-
-                                    </button>
-
+                                <td>
+                                    <b class="status on-time">
+                                        On Time
+                                    </b>
                                 </td>
 
                             </tr>
 
 
-
-                            <tr
-                                class="operation-row">
-
+                            <tr data-status="boarding">
 
                                 <td>
-
-                                    <strong>
-                                        R-11
-                                    </strong>
-
-                                    <small>
-                                        Airport → Downtown
-                                    </small>
-
+                                    <strong>R-08</strong>
+                                    <small>University → Downtown</small>
                                 </td>
 
-
                                 <td>
-                                    TR-118
+                                    TR-221
                                 </td>
 
-
                                 <td>
-                                    S. Ahmed
+                                    <span class="driver">
+                                        <i>HS</i>
+                                        Hassan Shah
+                                    </span>
                                 </td>
 
-
                                 <td>
-                                    Central Station
+                                    10:05 AM
                                 </td>
 
-
                                 <td>
-
-                                    <div
-                                        class="load-cell">
-
+                                    <div class="occupancy">
                                         <span>
-                                            64%
+                                            <i style="width:91%"></i>
                                         </span>
-
-                                        <div
-                                            class="load-bar">
-
-                                            <span
-                                                style="width:64%">
-                                            </span>
-
-                                        </div>
-
+                                        91%
                                     </div>
-
                                 </td>
 
-
                                 <td>
-                                    10:05
-                                </td>
-
-
-                                <td>
-
-                                    <span
-                                        class="status-pill boarding">
-
+                                    <b class="status boarding">
                                         Boarding
-
-                                    </span>
-
-                                </td>
-
-
-                                <td>
-
-                                    <button
-                                        class="view-btn"
-                                        data-vehicle="TR-118">
-
-                                        View
-
-                                    </button>
-
+                                    </b>
                                 </td>
 
                             </tr>
 
 
-
-                            <tr
-                                class="operation-row">
-
+                            <tr data-status="delayed">
 
                                 <td>
-
-                                    <strong>
-                                        R-07
-                                    </strong>
-
-                                    <small>
-                                        East Gate → Mall
-                                    </small>
-
+                                    <strong>R-21</strong>
+                                    <small>North Terminal → Mall</small>
                                 </td>
 
-
                                 <td>
-                                    TR-307
+                                    TR-087
                                 </td>
 
-
                                 <td>
-                                    M. Ali
+                                    <span class="driver">
+                                        <i>MR</i>
+                                        M. Raza
+                                    </span>
                                 </td>
 
-
                                 <td>
-                                    East Market
+                                    10:20 AM
                                 </td>
 
-
                                 <td>
-
-                                    <div
-                                        class="load-cell">
-
+                                    <div class="occupancy">
                                         <span>
-                                            91%
+                                            <i style="width:54%"></i>
                                         </span>
-
-                                        <div
-                                            class="load-bar high-load">
-
-                                            <span
-                                                style="width:91%">
-                                            </span>
-
-                                        </div>
-
+                                        54%
                                     </div>
-
                                 </td>
 
-
                                 <td>
-                                    10:20
-                                </td>
-
-
-                                <td>
-
-                                    <span
-                                        class="status-pill delayed">
-
+                                    <b class="status delayed">
                                         Delayed
-
-                                    </span>
-
-                                </td>
-
-
-                                <td>
-
-                                    <button
-                                        class="view-btn"
-                                        data-vehicle="TR-307">
-
-                                        View
-
-                                    </button>
-
+                                    </b>
                                 </td>
 
                             </tr>
 
 
-
-                            <tr
-                                class="operation-row">
-
+                            <tr data-status="on-time">
 
                                 <td>
-
-                                    <strong>
-                                        R-15
-                                    </strong>
-
-                                    <small>
-                                        North → City
-                                    </small>
-
+                                    <strong>R-17</strong>
+                                    <small>City Center → Industrial</small>
                                 </td>
 
-
                                 <td>
-                                    TR-415
+                                    TR-116
                                 </td>
 
-
                                 <td>
-                                    R. Malik
+                                    <span class="driver">
+                                        <i>SN</i>
+                                        Saad Noor
+                                    </span>
                                 </td>
 
-
                                 <td>
-                                    City Center
+                                    10:35 AM
                                 </td>
 
-
                                 <td>
-
-                                    <div
-                                        class="load-cell">
-
+                                    <div class="occupancy">
                                         <span>
-                                            58%
+                                            <i style="width:67%"></i>
                                         </span>
-
-                                        <div
-                                            class="load-bar">
-
-                                            <span
-                                                style="width:58%">
-                                            </span>
-
-                                        </div>
-
+                                        67%
                                     </div>
-
                                 </td>
 
-
                                 <td>
-                                    10:35
-                                </td>
-
-
-                                <td>
-
-                                    <span
-                                        class="status-pill on-route">
-
-                                        On Route
-
-                                    </span>
-
-                                </td>
-
-
-                                <td>
-
-                                    <button
-                                        class="view-btn"
-                                        data-vehicle="TR-415">
-
-                                        View
-
-                                    </button>
-
+                                    <b class="status on-time">
+                                        On Time
+                                    </b>
                                 </td>
 
                             </tr>
+
+
+                            <tr data-status="completed">
+
+                                <td>
+                                    <strong>R-05</strong>
+                                    <small>East Station → Central</small>
+                                </td>
+
+                                <td>
+                                    TR-092
+                                </td>
+
+                                <td>
+                                    <span class="driver">
+                                        <i>FA</i>
+                                        Farhan Ali
+                                    </span>
+                                </td>
+
+                                <td>
+                                    10:45 AM
+                                </td>
+
+                                <td>
+                                    <div class="occupancy">
+                                        <span>
+                                            <i style="width:82%"></i>
+                                        </span>
+                                        82%
+                                    </div>
+                                </td>
+
+                                <td>
+                                    <b class="status completed">
+                                        Completed
+                                    </b>
+                                </td>
+
+                            </tr>
+
 
                         </tbody>
 
                     </table>
 
+                    <div id="noResults" class="no-results">
+                        No matching records found.
+                    </div>
+
                 </div>
 
             </section>
@@ -1594,109 +848,152 @@
 
 
             <!-- =================================================
-                 ANALYTICS GRID
+                 ANALYTICS ROW
             ================================================== -->
 
-            <section
-                class="analytics-grid"
-                id="analytics">
+            <section class="analytics-grid">
 
 
-                <!-- PASSENGER FLOW -->
+                <!-- Passenger Flow -->
 
-                <div
-                    class="analytics-card passenger-card">
+                <div class="chart-card large-chart">
 
-
-                    <div
-                        class="card-heading">
-
+                    <div class="chart-heading">
 
                         <div>
-
-                            <p
-                                class="eyebrow">
-
-                                PASSENGER DEMAND
-
-                            </p>
-
-                            <h2>
-                                Passenger flow
-                            </h2>
-
-                        </div>
-
-
-                        <div
-                            class="big-stat">
-
-                            8,420
-
-                            <span>
-                                +8.2%
+                            <span class="section-label">
+                                RIDERSHIP ANALYTICS
                             </span>
 
+                            <h2>
+                                Passenger Flow
+                            </h2>
+
+                            <p>
+                                Hourly passenger movement across the network
+                            </p>
                         </div>
+
+                        <select>
+                            <option>Today</option>
+                            <option>This Week</option>
+                            <option>This Month</option>
+                        </select>
 
                     </div>
 
-
-                    <div
-                        class="chart-area">
-
-                        <canvas
-                            id="passengerChart">
-                        </canvas>
-
+                    <div class="chart-area">
+                        <canvas id="passengerChart"></canvas>
                     </div>
 
                 </div>
 
 
 
-                <!-- DELAY ANALYSIS -->
+                <!-- Route Health -->
 
-                <div
-                    class="analytics-card">
+                <div class="chart-card">
 
-
-                    <div
-                        class="card-heading">
-
+                    <div class="chart-heading">
 
                         <div>
-
-                            <p
-                                class="eyebrow">
-
-                                SERVICE QUALITY
-
-                            </p>
+                            <span class="section-label">
+                                ROUTE PERFORMANCE
+                            </span>
 
                             <h2>
-                                Delay analysis
+                                Route Health
                             </h2>
 
+                            <p>
+                                Reliability by route
+                            </p>
                         </div>
-
-
-                        <span
-                            class="mini-tag">
-
-                            24H
-
-                        </span>
 
                     </div>
 
 
-                    <div
-                        class="chart-area">
+                    <div class="health-list">
 
-                        <canvas
-                            id="delayChart">
-                        </canvas>
+
+                        <div class="route-health">
+
+                            <div>
+                                <strong>R-12</strong>
+                                <small>Central — Airport</small>
+                            </div>
+
+                            <span>
+                                <i style="width:94%"></i>
+                            </span>
+
+                            <b>94%</b>
+
+                        </div>
+
+
+                        <div class="route-health">
+
+                            <div>
+                                <strong>R-08</strong>
+                                <small>University — Downtown</small>
+                            </div>
+
+                            <span>
+                                <i style="width:91%"></i>
+                            </span>
+
+                            <b>91%</b>
+
+                        </div>
+
+
+                        <div class="route-health">
+
+                            <div>
+                                <strong>R-17</strong>
+                                <small>City Center — Industrial</small>
+                            </div>
+
+                            <span>
+                                <i style="width:88%"></i>
+                            </span>
+
+                            <b>88%</b>
+
+                        </div>
+
+
+                        <div class="route-health">
+
+                            <div>
+                                <strong>R-21</strong>
+                                <small>North Terminal — Mall</small>
+                            </div>
+
+                            <span class="warning">
+                                <i style="width:76%"></i>
+                            </span>
+
+                            <b>76%</b>
+
+                        </div>
+
+
+                        <div class="route-health">
+
+                            <div>
+                                <strong>R-05</strong>
+                                <small>East Station — Central</small>
+                            </div>
+
+                            <span>
+                                <i style="width:84%"></i>
+                            </span>
+
+                            <b>84%</b>
+
+                        </div>
 
                     </div>
 
@@ -1707,203 +1004,104 @@
 
 
             <!-- =================================================
-                 PERFORMANCE ROW
+                 FINANCIAL + PEAK HOURS
             ================================================== -->
 
-            <section
-                class="performance-grid">
+            <section class="three-column-grid">
 
 
-                <!-- DRIVER PERFORMANCE -->
+                <!-- Revenue -->
 
-                <div
-                    class="white-card"
-                    id="drivers">
+                <div class="chart-card">
 
-
-                    <div
-                        class="card-heading">
-
+                    <div class="chart-heading">
 
                         <div>
-
-                            <p
-                                class="eyebrow">
-
-                                DRIVERS
-
-                            </p>
+                            <span class="section-label">
+                                TICKETING
+                            </span>
 
                             <h2>
-                                Driver performance
+                                Revenue Overview
                             </h2>
 
+                            <p>
+                                Daily ticket revenue
+                            </p>
                         </div>
-
-
-                        <button
-                            class="text-link">
-
-                            View all →
-
-                        </button>
 
                     </div>
 
+                    <div class="revenue-number">
+                        Rs. 486K
+                    </div>
 
-                    <div
-                        class="driver-list">
+                    <div class="revenue-change">
+                        ↑ 12.6% from yesterday
+                    </div>
 
+                    <div class="small-chart">
+                        <canvas id="revenueChart"></canvas>
+                    </div>
 
-                        <div
-                            class="driver-row">
-
-
-                            <div
-                                class="driver-avatar">
-
-                                AK
-
-                            </div>
+                </div>
 
 
-                            <div
-                                class="driver-info">
 
-                                <strong>
-                                    A. Khan
-                                </strong>
+                <!-- Peak Hours -->
 
-                                <span>
-                                    18 trips today
-                                </span>
+                <div class="chart-card">
 
-                            </div>
+                    <div class="chart-heading">
 
+                        <div>
+                            <span class="section-label">
+                                DEMAND
+                            </span>
 
-                            <div
-                                class="driver-performance">
+                            <h2>
+                                Peak Hours
+                            </h2>
 
-                                <strong>
-                                    96%
-                                </strong>
-
-                                <span>
-                                    on-time
-                                </span>
-
-                            </div>
-
-
-                            <div
-                                class="driver-rating">
-
-                                ★ 4.8
-
-                            </div>
-
+                            <p>
+                                Passenger demand pattern
+                            </p>
                         </div>
 
+                    </div>
 
+                    <div class="peak-list">
 
-                        <div
-                            class="driver-row">
-
-
-                            <div
-                                class="driver-avatar avatar-two">
-
-                                SA
-
-                            </div>
-
-
-                            <div
-                                class="driver-info">
-
-                                <strong>
-                                    S. Ahmed
-                                </strong>
-
-                                <span>
-                                    16 trips today
-                                </span>
-
-                            </div>
-
-
-                            <div
-                                class="driver-performance">
-
-                                <strong>
-                                    93%
-                                </strong>
-
-                                <span>
-                                    on-time
-                                </span>
-
-                            </div>
-
-
-                            <div
-                                class="driver-rating">
-
-                                ★ 4.6
-
-                            </div>
-
+                        <div>
+                            <span>07–09 AM</span>
+                            <b>92%</b>
+                            <i>
+                                <em style="width:92%"></em>
+                            </i>
                         </div>
 
+                        <div>
+                            <span>12–02 PM</span>
+                            <b>68%</b>
+                            <i>
+                                <em style="width:68%"></em>
+                            </i>
+                        </div>
 
+                        <div>
+                            <span>04–06 PM</span>
+                            <b>96%</b>
+                            <i>
+                                <em style="width:96%"></em>
+                            </i>
+                        </div>
 
-                        <div
-                            class="driver-row">
-
-
-                            <div
-                                class="driver-avatar avatar-three">
-
-                                RM
-
-                            </div>
-
-
-                            <div
-                                class="driver-info">
-
-                                <strong>
-                                    R. Malik
-                                </strong>
-
-                                <span>
-                                    15 trips today
-                                </span>
-
-                            </div>
-
-
-                            <div
-                                class="driver-performance">
-
-                                <strong>
-                                    91%
-                                </strong>
-
-                                <span>
-                                    on-time
-                                </span>
-
-                            </div>
-
-
-                            <div
-                                class="driver-rating">
-
-                                ★ 4.5
-
-                            </div>
-
+                        <div>
+                            <span>08–10 PM</span>
+                            <b>54%</b>
+                            <i>
+                                <em style="width:54%"></em>
+                            </i>
                         </div>
 
                     </div>
@@ -1912,167 +1110,58 @@
 
 
 
-                <!-- FUEL -->
+                <!-- Fuel -->
 
-                <div
-                    class="white-card"
-                    id="fuel">
+                <div class="chart-card">
 
-
-                    <div
-                        class="card-heading">
-
+                    <div class="chart-heading">
 
                         <div>
-
-                            <p
-                                class="eyebrow">
-
-                                FUEL & EFFICIENCY
-
-                            </p>
+                            <span class="section-label">
+                                ENERGY
+                            </span>
 
                             <h2>
-                                Depot consumption
+                                Fuel & Energy
                             </h2>
 
-                        </div>
-
-
-                        <span
-                            class="mini-tag green-tag">
-
-                            NORMAL
-
-                        </span>
-
-                    </div>
-
-
-                    <div
-                        class="fuel-list">
-
-
-                        <div
-                            class="fuel-row">
-
-                            <div>
-
-                                <span>
-                                    Central Depot
-                                </span>
-
-                                <strong>
-                                    82%
-                                </strong>
-
-                            </div>
-
-                            <div
-                                class="fuel-track">
-
-                                <span
-                                    style="width:82%">
-                                </span>
-
-                            </div>
-
-                        </div>
-
-
-                        <div
-                            class="fuel-row">
-
-                            <div>
-
-                                <span>
-                                    North Depot
-                                </span>
-
-                                <strong>
-                                    74%
-                                </strong>
-
-                            </div>
-
-                            <div
-                                class="fuel-track">
-
-                                <span
-                                    style="width:74%">
-                                </span>
-
-                            </div>
-
-                        </div>
-
-
-                        <div
-                            class="fuel-row">
-
-                            <div>
-
-                                <span>
-                                    Airport Depot
-                                </span>
-
-                                <strong>
-                                    91%
-                                </strong>
-
-                            </div>
-
-                            <div
-                                class="fuel-track">
-
-                                <span
-                                    style="width:91%">
-                                </span>
-
-                            </div>
-
-                        </div>
-
-
-                        <div
-                            class="fuel-row">
-
-                            <div>
-
-                                <span>
-                                    East Depot
-                                </span>
-
-                                <strong>
-                                    68%
-                                </strong>
-
-                            </div>
-
-                            <div
-                                class="fuel-track">
-
-                                <span
-                                    style="width:68%">
-                                </span>
-
-                            </div>
-
+                            <p>
+                                Current consumption status
+                            </p>
                         </div>
 
                     </div>
 
 
-                    <div
-                        class="fuel-footer">
-
-                        <span>
-                            Average efficiency
-                        </span>
+                    <div class="energy-main">
 
                         <strong>
-                            7.8 km/L
+                            74%
                         </strong>
+
+                        <span>
+                            Efficiency
+                        </span>
+
+                    </div>
+
+
+                    <div class="energy-bar">
+                        <span></span>
+                    </div>
+
+
+                    <div class="energy-stats">
+
+                        <div>
+                            <strong>3,820 L</strong>
+                            <span>Consumed</span>
+                        </div>
+
+                        <div>
+                            <strong>5,160 L</strong>
+                            <span>Available</span>
+                        </div>
 
                     </div>
 
@@ -2083,78 +1172,87 @@
 
 
             <!-- =================================================
-                 BOTTOM ROW
+                 FLEET + INCIDENTS
             ================================================== -->
 
-            <section
-                class="bottom-grid">
+            <section class="bottom-grid">
 
 
-                <!-- ALERTS -->
+                <!-- Fleet Distribution -->
 
-                <div
-                    class="white-card"
-                    id="alerts">
+                <div class="chart-card fleet-distribution">
 
-
-                    <div
-                        class="card-heading">
-
+                    <div class="chart-heading">
 
                         <div>
-
-                            <p
-                                class="eyebrow">
-
-                                INCIDENT CENTER
-
-                            </p>
+                            <span class="section-label">
+                                FLEET ANALYTICS
+                            </span>
 
                             <h2>
-                                Alerts & incidents
+                                Fleet Distribution
                             </h2>
 
+                            <p>
+                                Vehicle state across operating depots
+                            </p>
                         </div>
 
+                    </div>
 
-                        <span
-                            class="alert-badge">
+                    <div class="fleet-chart">
+                        <canvas id="fleetChart"></canvas>
+                    </div>
 
-                            07 OPEN
+                </div>
 
+
+
+                <!-- Incidents -->
+
+                <div class="incidents-card">
+
+                    <div class="chart-heading">
+
+                        <div>
+                            <span class="section-label">
+                                OPERATIONS ALERTS
+                            </span>
+
+                            <h2>
+                                Active Incidents
+                            </h2>
+
+                            <p>
+                                Events requiring attention
+                            </p>
+                        </div>
+
+                        <span class="incident-count">
+                            07
                         </span>
 
                     </div>
 
 
-                    <div
-                        class="alert-list">
+                    <div class="incident-list">
 
 
-                        <div
-                            class="alert-row critical">
+                        <div class="incident">
 
-
-                            <div
-                                class="alert-symbol">
-
+                            <span class="incident-icon critical">
                                 !
-
-                            </div>
-
+                            </span>
 
                             <div>
-
                                 <strong>
-                                    Brake inspection required
+                                    Vehicle delay
                                 </strong>
 
-                                <span>
-                                    TR-307 · 4 minutes ago
-                                </span>
-
+                                <small>
+                                    R-21 · 8 minutes ago
+                                </small>
                             </div>
-
 
                             <b>
                                 Critical
@@ -2163,64 +1261,67 @@
                         </div>
 
 
+                        <div class="incident">
 
-                        <div
-                            class="alert-row warning-alert">
-
-
-                            <div
-                                class="alert-symbol">
-
-                                ~
-
-                            </div>
-
+                            <span class="incident-icon warning">
+                                !
+                            </span>
 
                             <div>
-
                                 <strong>
-                                    Route R-07 running late
+                                    High occupancy
                                 </strong>
 
-                                <span>
-                                    8 minute delay · East Gate
-                                </span>
-
+                                <small>
+                                    R-08 · 14 minutes ago
+                                </small>
                             </div>
 
-
                             <b>
-                                Warning
+                                Monitor
                             </b>
 
                         </div>
 
 
+                        <div class="incident">
 
-                        <div
-                            class="alert-row info-alert">
-
-
-                            <div
-                                class="alert-symbol">
-
-                                i
-
-                            </div>
-
+                            <span class="incident-icon normal">
+                                ✓
+                            </span>
 
                             <div>
-
                                 <strong>
-                                    Passenger load above 90%
+                                    Route restored
                                 </strong>
 
-                                <span>
-                                    R-07 · East Market
-                                </span>
-
+                                <small>
+                                    R-17 · 22 minutes ago
+                                </small>
                             </div>
 
+                            <b>
+                                Resolved
+                            </b>
+
+                        </div>
+
+
+                        <div class="incident">
+
+                            <span class="incident-icon warning">
+                                !
+                            </span>
+
+                            <div>
+                                <strong>
+                                    Fuel threshold
+                                </strong>
+
+                                <small>
+                                    TR-221 · 31 minutes ago
+                                </small>
+                            </div>
 
                             <b>
                                 Monitor
@@ -2232,168 +1333,338 @@
 
                 </div>
 
+            </section>
 
 
-                <!-- MAINTENANCE -->
 
-                <div
-                    class="white-card"
-                    id="maintenance">
+            <!-- =================================================
+                 DRIVER + MAINTENANCE + DEPARTURES
+            ================================================== -->
+
+            <section class="three-column-grid">
 
 
-                    <div
-                        class="card-heading">
+                <!-- Drivers -->
 
+                <div class="chart-card">
+
+                    <div class="chart-heading">
 
                         <div>
-
-                            <p
-                                class="eyebrow">
-
-                                WORKSHOP
-
-                            </p>
+                            <span class="section-label">
+                                WORKFORCE
+                            </span>
 
                             <h2>
-                                Maintenance queue
+                                Driver Performance
                             </h2>
 
                         </div>
 
+                    </div>
 
-                        <span
-                            class="mini-tag">
 
-                            05 VEHICLES
+                    <div class="driver-ranking">
 
+                        <div>
+
+                            <span class="driver-avatar">
+                                AK
+                            </span>
+
+                            <div>
+                                <strong>Ahmed Khan</strong>
+                                <small>R-12 · 98%</small>
+                            </div>
+
+                            <b>98%</b>
+
+                        </div>
+
+
+                        <div>
+
+                            <span class="driver-avatar">
+                                HS
+                            </span>
+
+                            <div>
+                                <strong>Hassan Shah</strong>
+                                <small>R-08 · 95%</small>
+                            </div>
+
+                            <b>95%</b>
+
+                        </div>
+
+
+                        <div>
+
+                            <span class="driver-avatar">
+                                SN
+                            </span>
+
+                            <div>
+                                <strong>Saad Noor</strong>
+                                <small>R-17 · 93%</small>
+                            </div>
+
+                            <b>93%</b>
+
+                        </div>
+
+
+                        <div>
+
+                            <span class="driver-avatar">
+                                FA
+                            </span>
+
+                            <div>
+                                <strong>Farhan Ali</strong>
+                                <small>R-05 · 91%</small>
+                            </div>
+
+                            <b>91%</b>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- Maintenance -->
+
+                <div class="dark-card">
+
+                    <div class="chart-heading">
+
+                        <div>
+                            <span class="section-label">
+                                VEHICLE SERVICE
+                            </span>
+
+                            <h2>
+                                Maintenance Queue
+                            </h2>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="maintenance-list">
+
+
+                        <div>
+                            <strong>TR-087</strong>
+                            <span>Brake inspection</span>
+                            <b class="high">18 SEP</b>
+                        </div>
+
+
+                        <div>
+                            <strong>TR-221</strong>
+                            <span>Engine service</span>
+                            <b class="medium">19 SEP</b>
+                        </div>
+
+
+                        <div>
+                            <strong>TR-116</strong>
+                            <span>Oil replacement</span>
+                            <b class="low">21 SEP</b>
+                        </div>
+
+
+                        <div>
+                            <strong>TR-104</strong>
+                            <span>General inspection</span>
+                            <b class="low">23 SEP</b>
+                        </div>
+
+                    </div>
+
+
+                    <button class="dark-button">
+                        Open maintenance schedule →
+                    </button>
+
+                </div>
+
+
+
+                <!-- Departures -->
+
+                <div class="chart-card">
+
+                    <div class="chart-heading">
+
+                        <div>
+                            <span class="section-label">
+                                NEXT DEPARTURES
+                            </span>
+
+                            <h2>
+                                Upcoming
+                            </h2>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="departure-list">
+
+                        <div>
+                            <strong>09:50</strong>
+                            <span>
+                                R-12 · Airport
+                            </span>
+                            <b>TR-104</b>
+                        </div>
+
+
+                        <div>
+                            <strong>10:05</strong>
+                            <span>
+                                R-08 · Downtown
+                            </span>
+                            <b>TR-221</b>
+                        </div>
+
+
+                        <div>
+                            <strong>10:20</strong>
+                            <span>
+                                R-21 · Mall
+                            </span>
+                            <b>TR-087</b>
+                        </div>
+
+
+                        <div>
+                            <strong>10:35</strong>
+                            <span>
+                                R-17 · Industrial
+                            </span>
+                            <b>TR-116</b>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 RECENT ACTIVITY
+            ================================================== -->
+
+            <section class="activity-section">
+
+                <div class="section-heading">
+
+                    <div>
+
+                        <span class="section-label">
+                            ACTIVITY LOG
                         </span>
 
-                    </div>
-
-
-                    <div
-                        class="maintenance-list">
-
-
-                        <div
-                            class="maintenance-row">
-
-
-                            <div>
-
-                                <strong>
-                                    TR-307
-                                </strong>
-
-                                <span>
-                                    Brake inspection
-                                </span>
-
-                            </div>
-
-
-                            <span
-                                class="maintenance-critical">
-
-                                URGENT
-
-                            </span>
-
-                        </div>
-
-
-
-                        <div
-                            class="maintenance-row">
-
-
-                            <div>
-
-                                <strong>
-                                    TR-221
-                                </strong>
-
-                                <span>
-                                    Engine service
-                                </span>
-
-                            </div>
-
-
-                            <span
-                                class="maintenance-today">
-
-                                TODAY
-
-                            </span>
-
-                        </div>
-
-
-
-                        <div
-                            class="maintenance-row">
-
-
-                            <div>
-
-                                <strong>
-                                    TR-416
-                                </strong>
-
-                                <span>
-                                    Tire replacement
-                                </span>
-
-                            </div>
-
-
-                            <span
-                                class="maintenance-tomorrow">
-
-                                TOMORROW
-
-                            </span>
-
-                        </div>
-
-
-
-                        <div
-                            class="maintenance-row">
-
-
-                            <div>
-
-                                <strong>
-                                    TR-109
-                                </strong>
-
-                                <span>
-                                    Oil change
-                                </span>
-
-                            </div>
-
-
-                            <span
-                                class="maintenance-tomorrow">
-
-                                FRI
-
-                            </span>
-
-                        </div>
+                        <h2>
+                            Recent Network Activity
+                        </h2>
 
                     </div>
 
-
-                    <button
-                        class="full-btn">
-
-                        Open workshop schedule →
-
+                    <button class="text-button">
+                        View activity log →
                     </button>
+
+                </div>
+
+
+                <div class="activity-grid">
+
+
+                    <div class="activity-item">
+
+                        <span class="activity-symbol green-symbol">
+                            ✓
+                        </span>
+
+                        <div>
+                            <strong>
+                                Route R-17 resumed normal service
+                            </strong>
+
+                            <small>
+                                09:38 AM · Dispatch Center
+                            </small>
+                        </div>
+
+                    </div>
+
+
+                    <div class="activity-item">
+
+                        <span class="activity-symbol blue-symbol">
+                            +
+                        </span>
+
+                        <div>
+                            <strong>
+                                Vehicle TR-116 assigned to R-17
+                            </strong>
+
+                            <small>
+                                09:31 AM · Fleet Management
+                            </small>
+                        </div>
+
+                    </div>
+
+
+                    <div class="activity-item">
+
+                        <span class="activity-symbol orange-symbol">
+                            !
+                        </span>
+
+                        <div>
+                            <strong>
+                                Delay alert created for R-21
+                            </strong>
+
+                            <small>
+                                09:24 AM · Operations
+                            </small>
+                        </div>
+
+                    </div>
+
+
+                    <div class="activity-item">
+
+                        <span class="activity-symbol green-symbol">
+                            ✓
+                        </span>
+
+                        <div>
+                            <strong>
+                                Daily fleet inspection completed
+                            </strong>
+
+                            <small>
+                                09:10 AM · Maintenance
+                            </small>
+                        </div>
+
+                    </div>
 
                 </div>
 
@@ -2405,218 +1676,26 @@
                  FOOTER
             ================================================== -->
 
-            <footer
-                class="dashboard-footer">
+            <footer>
 
                 <span>
-                    Transit Operations Command Center
+                    Transit Operations Control Center
                 </span>
 
                 <span>
-                    Last synchronized
-                    <strong id="syncTime">
-                        09:42:18
-                    </strong>
+                    System synchronized · Last update 2 minutes ago
                 </span>
 
             </footer>
+
 
         </main>
 
     </div>
 
 
-
-    <!-- =====================================================
-         VEHICLE MODAL
-    ====================================================== -->
-
-    <div
-        id="vehicleModal"
-        class="modal">
-
-
-        <div
-            class="modal-box">
-
-
-            <button
-                id="closeModal"
-                class="modal-close">
-
-                ×
-
-            </button>
-
-
-            <p
-                class="eyebrow">
-
-                VEHICLE DETAILS
-
-            </p>
-
-
-            <div
-                class="modal-title-row">
-
-                <div>
-
-                    <h2
-                        id="modalVehicle">
-
-                        TR-204
-
-                    </h2>
-
-                    <p
-                        id="modalRoute">
-
-                        Route R-04 · Central → University
-
-                    </p>
-
-                </div>
-
-
-                <span
-                    class="status-pill on-route">
-
-                    ON ROUTE
-
-                </span>
-
-            </div>
-
-
-            <div
-                class="vehicle-details">
-
-
-                <div>
-
-                    <span>
-                        Driver
-                    </span>
-
-                    <strong id="modalDriver">
-                        A. Khan
-                    </strong>
-
-                </div>
-
-
-                <div>
-
-                    <span>
-                        Speed
-                    </span>
-
-                    <strong>
-                        42 km/h
-                    </strong>
-
-                </div>
-
-
-                <div>
-
-                    <span>
-                        Passengers
-                    </span>
-
-                    <strong id="modalPassengers">
-                        67 / 80
-                    </strong>
-
-                </div>
-
-
-                <div>
-
-                    <span>
-                        Fuel
-                    </span>
-
-                    <strong>
-                        74%
-                    </strong>
-
-                </div>
-
-
-                <div>
-
-                    <span>
-                        Next Stop
-                    </span>
-
-                    <strong id="modalStop">
-                        University Gate
-                    </strong>
-
-                </div>
-
-
-                <div>
-
-                    <span>
-                        ETA
-                    </span>
-
-                    <strong>
-                        09:58
-                    </strong>
-
-                </div>
-
-            </div>
-
-
-            <div
-                class="modal-route">
-
-                <div
-                    class="modal-route-line">
-
-                    <span class="route-point"></span>
-
-                    <span class="route-progress"></span>
-
-                    <span class="route-point"></span>
-
-                </div>
-
-
-                <div
-                    class="modal-route-labels">
-
-                    <span>
-                        Central
-                    </span>
-
-                    <span>
-                        University
-                    </span>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-
-
-    <!-- =====================================================
-         JAVASCRIPT
-    ====================================================== -->
-
-    <script
-        src="script.js"
-        defer>
-    </script>
+    <!-- Main JavaScript -->
+    <script src="script.js" defer></script>
 
 </body>
 
