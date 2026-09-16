@@ -1,562 +1,377 @@
 /* =========================================================
-   TRANSIT OPERATIONS COMMAND CENTER
-========================================================= */
-/* =========================================================
-   LIVE CLOCK
+   TRANSIT OPERATIONS DASHBOARD
 ========================================================= */
 
-function updateClock() {
+document.addEventListener("DOMContentLoaded", function () {
 
-    const now = new Date();
+    /* =====================================================
+       LIVE CLOCK
+    ====================================================== */
 
+    function updateClock() {
 
-    const time = now.toLocaleTimeString(
-        "en-US",
-        {
-            hour: "2-digit",
-            minute: "2-digit",
-            second: "2-digit",
-            hour12: false
-        }
-    );
+        const clock =
+            document.getElementById("liveClock");
 
+        if (!clock) return;
 
-    const date = now.toLocaleDateString(
-        "en-GB",
-        {
-            day: "2-digit",
-            month: "short",
-            year: "numeric"
-        }
-    ).toUpperCase();
+        const now = new Date();
 
+        const hours =
+            String(now.getHours()).padStart(2, "0");
 
-    const timeElement =
-        document.getElementById("currentTime");
+        const minutes =
+            String(now.getMinutes()).padStart(2, "0");
 
+        const seconds =
+            String(now.getSeconds()).padStart(2, "0");
 
-    const dateElement =
-        document.getElementById("todayDate");
+        clock.textContent =
+            `${hours}:${minutes}:${seconds}`;
 
+    }
 
-    const syncElement =
-        document.getElementById("syncTime");
+    updateClock();
+
+    setInterval(updateClock, 1000);
 
 
-    if (timeElement) {
 
-        timeElement.textContent = time;
+    /* =====================================================
+       MOBILE SIDEBAR
+    ====================================================== */
+
+    const mobileButton =
+        document.getElementById("mobileMenuBtn");
+
+    const sidebar =
+        document.getElementById("sidebar");
+
+
+    if (mobileButton) {
+
+        mobileButton.addEventListener("click", function () {
+
+            sidebar.classList.toggle("open");
+
+        });
 
     }
 
 
-    if (dateElement) {
 
-        dateElement.textContent = date;
+    /* =====================================================
+       NAVIGATION
+    ====================================================== */
 
-    }
-
-
-    if (syncElement) {
-
-        syncElement.textContent = time;
-
-    }
-
-}
+    const navLinks =
+        document.querySelectorAll(".nav-link");
 
 
-updateClock();
+    navLinks.forEach(function (link) {
 
-setInterval(updateClock, 1000);
+        link.addEventListener("click", function (event) {
 
+            event.preventDefault();
 
+            navLinks.forEach(function (item) {
 
-/* =========================================================
-   SEARCH + STATUS FILTER
-========================================================= */
+                item.classList.remove("active");
 
-const searchInput =
-    document.getElementById("searchInput");
+            });
 
+            link.classList.add("active");
 
-const statusFilter =
-    document.getElementById("statusFilter");
-
-
-const operationRows =
-    document.querySelectorAll(".operation-row");
-
-
-function filterOperations() {
-
-    const searchValue =
-        searchInput.value
-            .trim()
-            .toLowerCase();
-
-
-    const selectedStatus =
-        statusFilter.value;
-
-
-    operationRows.forEach(row => {
-
-        const rowText =
-            row.textContent.toLowerCase();
-
-
-        const statusElement =
-            row.querySelector(".status-pill");
-
-
-        const rowStatus =
-            statusElement
-                ? statusElement.textContent.trim()
-                : "";
-
-
-        const matchesSearch =
-            rowText.includes(searchValue);
-
-
-        const matchesStatus =
-            selectedStatus === "all" ||
-            rowStatus === selectedStatus;
-
-
-        row.style.display =
-            matchesSearch && matchesStatus
-                ? ""
-                : "none";
+        });
 
     });
 
-}
 
 
-if (searchInput) {
+    /* =====================================================
+       SEARCH + STATUS FILTER
+    ====================================================== */
+
+    const searchInput =
+        document.getElementById("searchInput");
+
+    const statusFilter =
+        document.getElementById("statusFilter");
+
+    const rows =
+        document.querySelectorAll(
+            "#networkTable tbody tr"
+        );
+
+    const noResults =
+        document.getElementById("noResults");
+
+
+    function filterRows() {
+
+        const searchText =
+            searchInput.value
+                .toLowerCase()
+                .trim();
+
+        const selectedStatus =
+            statusFilter.value;
+
+        let visible =
+            0;
+
+
+        rows.forEach(function (row) {
+
+            const rowText =
+                row.textContent.toLowerCase();
+
+            const rowStatus =
+                row.dataset.status;
+
+
+            const searchMatch =
+                rowText.includes(searchText);
+
+
+            const statusMatch =
+                selectedStatus === "all" ||
+                rowStatus === selectedStatus;
+
+
+            if (searchMatch && statusMatch) {
+
+                row.style.display = "";
+
+                visible++;
+
+            } else {
+
+                row.style.display = "none";
+
+            }
+
+        });
+
+
+        noResults.style.display =
+            visible === 0
+                ? "block"
+                : "none";
+
+    }
+
 
     searchInput.addEventListener(
         "input",
-        filterOperations
+        filterRows
     );
 
-}
-
-
-if (statusFilter) {
 
     statusFilter.addEventListener(
         "change",
-        filterOperations
-    );
-
-}
-
-
-
-/* =========================================================
-   CHART DEFAULTS
-========================================================= */
-
-Chart.defaults.font.family =
-    "Inter, system-ui, sans-serif";
-
-Chart.defaults.color =
-    "#71807D";
-
-
-/* =========================================================
-   PASSENGER FLOW CHART
-========================================================= */
-
-const passengerCanvas =
-    document.getElementById(
-        "passengerChart"
+        filterRows
     );
 
 
-if (passengerCanvas) {
 
-    const context =
-        passengerCanvas.getContext("2d");
+    /* =====================================================
+       CHART GLOBAL SETTINGS
+    ====================================================== */
+
+    Chart.defaults.font.family =
+        "Inter, system-ui, sans-serif";
+
+    Chart.defaults.color =
+        "#71807E";
 
 
-    const gradient =
-        context.createLinearGradient(
+
+    /* =====================================================
+       PASSENGER FLOW
+    ====================================================== */
+
+    const passengerCanvas =
+        document.getElementById("passengerChart");
+
+
+    if (passengerCanvas) {
+
+        const ctx =
+            passengerCanvas.getContext("2d");
+
+
+        const gradient =
+            ctx.createLinearGradient(
+                0,
+                0,
+                0,
+                280
+            );
+
+
+        gradient.addColorStop(
             0,
-            0,
-            0,
-            260
+            "rgba(60,133,131,.28)"
         );
 
 
-    gradient.addColorStop(
-        0,
-        "rgba(61,129,124,0.34)"
-    );
-
-
-    gradient.addColorStop(
-        1,
-        "rgba(61,129,124,0.01)"
-    );
-
-
-    new Chart(
-        context,
-        {
-
-            type: "line",
-
-
-            data: {
-
-                labels: [
-                    "06",
-                    "07",
-                    "08",
-                    "09",
-                    "10",
-                    "11",
-                    "12",
-                    "13",
-                    "14",
-                    "15",
-                    "16",
-                    "17"
-                ],
-
-
-                datasets: [
-
-                    {
-
-                        label:
-                            "Passengers",
-
-                        data: [
-                            280,
-                            410,
-                            690,
-                            1080,
-                            930,
-                            710,
-                            760,
-                            820,
-                            900,
-                            1040,
-                            1210,
-                            1460
-                        ],
-
-                        borderColor:
-                            "#3D817C",
-
-                        backgroundColor:
-                            gradient,
-
-                        fill: true,
-
-                        tension: 0.42,
-
-                        borderWidth: 2.5,
-
-                        pointRadius: 0,
-
-                        pointHoverRadius: 5,
-
-                        pointHoverBackgroundColor:
-                            "#0D2528"
-
-                    }
-
-                ]
-
-            },
-
-
-            options: {
-
-                responsive: true,
-
-                maintainAspectRatio: false,
-
-
-                interaction: {
-
-                    intersect: false,
-
-                    mode: "index"
-
-                },
-
-
-                plugins: {
-
-                    legend: {
-
-                        display: false
-
-                    },
-
-
-                    tooltip: {
-
-                        backgroundColor:
-                            "#0D2528",
-
-                        titleColor:
-                            "#FFFFFF",
-
-                        bodyColor:
-                            "#D8E8E5",
-
-                        padding: 11,
-
-                        displayColors: false
-
-                    }
-
-                },
-
-
-                scales: {
-
-                    x: {
-
-                        grid: {
-
-                            display: false
-
-                        },
-
-                        border: {
-
-                            display: false
-
-                        },
-
-                        ticks: {
-
-                            font: {
-
-                                size: 8
-
-                            }
-
-                        }
-
-                    },
-
-
-                    y: {
-
-                        beginAtZero: true,
-
-                        border: {
-
-                            display: false
-
-                        },
-
-                        grid: {
-
-                            color:
-                                "#E7ECE9"
-
-                        },
-
-                        ticks: {
-
-                            font: {
-
-                                size: 8
-
-                            },
-
-                            callback: value => {
-
-                                return value >= 1000
-                                    ? (value / 1000) + "K"
-                                    : value;
-
-                            }
-
-                        }
-
-                    }
-
-                }
-
-            }
-
-        }
-
-    );
-
-}
-
-
-
-/* =========================================================
-   DELAY ANALYSIS CHART
-========================================================= */
-
-const delayCanvas =
-    document.getElementById(
-        "delayChart"
-    );
-
-
-if (delayCanvas) {
-
-    new Chart(
-        delayCanvas,
-        {
-
-            type: "bar",
-
-
-            data: {
-
-                labels: [
-                    "06",
-                    "08",
-                    "10",
-                    "12",
-                    "14",
-                    "16",
-                    "18",
-                    "20"
-                ],
-
-
-                datasets: [
-
-                    {
-
-                        label:
-                            "Delay minutes",
-
-                        data: [
-                            2,
-                            3,
-                            7,
-                            4,
-                            5,
-                            8,
-                            6,
-                            3
-                        ],
-
-                        backgroundColor:
-                            [
-                                "#9AC5BE",
-                                "#9AC5BE",
-                                "#D66F57",
-                                "#9AC5BE",
-                                "#E8B45B",
-                                "#D66F57",
-                                "#E8B45B",
-                                "#9AC5BE"
+        gradient.addColorStop(
+            1,
+            "rgba(60,133,131,.01)"
+        );
+
+
+        new Chart(
+
+            ctx,
+
+            {
+
+                type: "line",
+
+                data: {
+
+                    labels: [
+                        "06 AM",
+                        "07 AM",
+                        "08 AM",
+                        "09 AM",
+                        "10 AM",
+                        "11 AM",
+                        "12 PM",
+                        "01 PM",
+                        "02 PM",
+                        "03 PM",
+                        "04 PM",
+                        "05 PM",
+                        "06 PM",
+                        "07 PM"
+                    ],
+
+                    datasets: [
+
+                        {
+
+                            label: "Passengers",
+
+                            data: [
+                                320,
+                                550,
+                                910,
+                                1280,
+                                1050,
+                                790,
+                                820,
+                                970,
+                                880,
+                                1110,
+                                1350,
+                                1510,
+                                1420,
+                                1190
                             ],
 
-                        borderRadius: 5,
+                            borderColor:
+                                "#3C8583",
 
-                        borderSkipped: false
+                            backgroundColor:
+                                gradient,
 
-                    }
+                            borderWidth: 3,
 
-                ]
+                            fill: true,
 
-            },
+                            tension: .42,
 
+                            pointRadius: 0,
 
-            options: {
+                            pointHoverRadius: 5
 
-                responsive: true,
+                        }
 
-                maintainAspectRatio: false,
-
-
-                plugins: {
-
-                    legend: {
-
-                        display: false
-
-                    },
-
-
-                    tooltip: {
-
-                        backgroundColor:
-                            "#0D2528",
-
-                        displayColors: false
-
-                    }
+                    ]
 
                 },
 
+                options: {
 
-                scales: {
+                    responsive: true,
 
-                    x: {
+                    maintainAspectRatio: false,
 
-                        grid: {
+                    interaction: {
 
+                        intersect: false,
+
+                        mode: "index"
+
+                    },
+
+                    plugins: {
+
+                        legend: {
                             display: false
-
                         },
 
-                        border: {
+                        tooltip: {
 
-                            display: false
+                            backgroundColor:
+                                "#102A2E",
 
-                        },
+                            displayColors: false,
 
-                        ticks: {
-
-                            font: {
-
-                                size: 8
-
-                            }
+                            padding: 10
 
                         }
 
                     },
 
+                    scales: {
 
-                    y: {
+                        x: {
 
-                        beginAtZero: true,
+                            grid: {
+                                display: false
+                            },
 
-                        max: 10,
+                            border: {
+                                display: false
+                            },
 
-                        border: {
-
-                            display: false
+                            ticks: {
+                                font: {
+                                    size: 10
+                                }
+                            }
 
                         },
 
-                        grid: {
+                        y: {
 
-                            color:
-                                "#E7ECE9"
+                            beginAtZero: true,
 
-                        },
+                            grid: {
+                                color: "#E8EFEC"
+                            },
 
-                        ticks: {
+                            border: {
+                                display: false
+                            },
 
-                            stepSize: 2,
+                            ticks: {
 
-                            font: {
+                                font: {
+                                    size: 10
+                                },
 
-                                size: 8
+                                callback: function (value) {
+
+                                    return value >= 1000
+                                        ? value / 1000 + "k"
+                                        : value;
+
+                                }
 
                             }
 
@@ -568,340 +383,338 @@ if (delayCanvas) {
 
             }
 
-        }
-
-    );
-
-}
-
-
-
-/* =========================================================
-   VEHICLE DATA
-========================================================= */
-
-const vehicleData = {
-
-    "TR-204": {
-
-        route:
-            "Route R-04 · Central → University",
-
-        driver:
-            "A. Khan",
-
-        passengers:
-            "67 / 80",
-
-        stop:
-            "University Gate"
-
-    },
-
-
-    "TR-118": {
-
-        route:
-            "Route R-11 · Airport → Downtown",
-
-        driver:
-            "S. Ahmed",
-
-        passengers:
-            "51 / 80",
-
-        stop:
-            "Central Station"
-
-    },
-
-
-    "TR-307": {
-
-        route:
-            "Route R-07 · East Gate → Mall",
-
-        driver:
-            "M. Ali",
-
-        passengers:
-            "73 / 80",
-
-        stop:
-            "East Market"
-
-    },
-
-
-    "TR-415": {
-
-        route:
-            "Route R-15 · North → City",
-
-        driver:
-            "R. Malik",
-
-        passengers:
-            "46 / 80",
-
-        stop:
-            "City Center"
-
-    }
-
-};
-
-
-
-/* =========================================================
-   VEHICLE MODAL
-========================================================= */
-
-const modal =
-    document.getElementById(
-        "vehicleModal"
-    );
-
-
-const closeModal =
-    document.getElementById(
-        "closeModal"
-    );
-
-
-const modalVehicle =
-    document.getElementById(
-        "modalVehicle"
-    );
-
-
-const modalRoute =
-    document.getElementById(
-        "modalRoute"
-    );
-
-
-const modalDriver =
-    document.getElementById(
-        "modalDriver"
-    );
-
-
-const modalPassengers =
-    document.getElementById(
-        "modalPassengers"
-    );
-
-
-const modalStop =
-    document.getElementById(
-        "modalStop"
-    );
-
-
-
-function openVehicleModal(vehicleId) {
-
-    const data =
-        vehicleData[vehicleId];
-
-
-    if (!data) {
-
-        return;
-
-    }
-
-
-    modalVehicle.textContent =
-        vehicleId;
-
-
-    modalRoute.textContent =
-        data.route;
-
-
-    modalDriver.textContent =
-        data.driver;
-
-
-    modalPassengers.textContent =
-        data.passengers;
-
-
-    modalStop.textContent =
-        data.stop;
-
-
-    modal.classList.add("show");
-
-    document.body.style.overflow =
-        "hidden";
-
-}
-
-
-
-/* =========================================================
-   TABLE VIEW BUTTONS
-========================================================= */
-
-document
-    .querySelectorAll(".view-btn")
-    .forEach(button => {
-
-        button.addEventListener(
-            "click",
-            () => {
-
-                const vehicle =
-                    button.dataset.vehicle;
-
-                openVehicleModal(vehicle);
-
-            }
         );
 
-    });
-
-
-
-/* =========================================================
-   MAP VEHICLE BUTTONS
-========================================================= */
-
-document
-    .querySelectorAll(".vehicle-marker")
-    .forEach(button => {
-
-        button.addEventListener(
-            "click",
-            () => {
-
-                const vehicle =
-                    button.dataset.vehicle;
-
-                openVehicleModal(vehicle);
-
-            }
-        );
-
-    });
-
-
-
-/* =========================================================
-   CLOSE MODAL
-========================================================= */
-
-if (closeModal) {
-
-    closeModal.addEventListener(
-        "click",
-        () => {
-
-            modal.classList.remove(
-                "show"
-            );
-
-            document.body.style.overflow =
-                "";
-
-        }
-    );
-
-}
-
-
-/* =========================================================
-   CLOSE MODAL ON BACKDROP
-========================================================= */
-
-if (modal) {
-
-    modal.addEventListener(
-        "click",
-        event => {
-
-            if (
-                event.target === modal
-            ) {
-
-                modal.classList.remove(
-                    "show"
-                );
-
-                document.body.style.overflow =
-                    "";
-
-            }
-
-        }
-    );
-
-}
-
-
-
-/* =========================================================
-   ESCAPE KEY
-========================================================= */
-
-document.addEventListener(
-    "keydown",
-    event => {
-
-        if (
-            event.key === "Escape" &&
-            modal.classList.contains("show")
-        ) {
-
-            modal.classList.remove(
-                "show"
-            );
-
-            document.body.style.overflow =
-                "";
-
-        }
-
     }
-);
 
 
 
-/* =========================================================
-   MAP FILTER BUTTONS
-========================================================= */
+    /* =====================================================
+       REVENUE CHART
+    ====================================================== */
 
-const mapFilters =
-    document.querySelectorAll(
-        ".map-filter"
-    );
+    const revenueCanvas =
+        document.getElementById("revenueChart");
 
 
-mapFilters.forEach(button => {
+    if (revenueCanvas) {
 
-    button.addEventListener(
-        "click",
-        () => {
+        new Chart(
 
-            mapFilters.forEach(
-                item => {
+            revenueCanvas.getContext("2d"),
 
-                    item.classList.remove(
-                        "active"
-                    );
+            {
+
+                type: "line",
+
+                data: {
+
+                    labels: [
+                        "Mon",
+                        "Tue",
+                        "Wed",
+                        "Thu",
+                        "Fri",
+                        "Sat",
+                        "Sun"
+                    ],
+
+                    datasets: [
+
+                        {
+
+                            data: [
+                                360,
+                                390,
+                                425,
+                                410,
+                                455,
+                                470,
+                                486
+                            ],
+
+                            borderColor:
+                                "#102A2E",
+
+                            borderWidth: 2.5,
+
+                            tension: .4,
+
+                            pointRadius: 0,
+
+                            fill: false
+
+                        }
+
+                    ]
+
+                },
+
+                options: {
+
+                    responsive: true,
+
+                    maintainAspectRatio: false,
+
+                    plugins: {
+
+                        legend: {
+                            display: false
+                        },
+
+                        tooltip: {
+
+                            backgroundColor:
+                                "#102A2E",
+
+                            displayColors: false,
+
+                            callbacks: {
+
+                                label: function (context) {
+
+                                    return (
+                                        "Rs. " +
+                                        context.parsed.y +
+                                        "K"
+                                    );
+
+                                }
+
+                            }
+
+                        }
+
+                    },
+
+                    scales: {
+
+                        x: {
+                            display: false
+                        },
+
+                        y: {
+                            display: false
+                        }
+
+                    }
 
                 }
-            );
+
+            }
+
+        );
+
+    }
 
 
-            button.classList.add(
-                "active"
-            );
 
-        }
-    );
+    /* =====================================================
+       FLEET DISTRIBUTION
+    ====================================================== */
+
+    const fleetCanvas =
+        document.getElementById("fleetChart");
+
+
+    if (fleetCanvas) {
+
+        new Chart(
+
+            fleetCanvas.getContext("2d"),
+
+            {
+
+                type: "bar",
+
+                data: {
+
+                    labels: [
+                        "Central",
+                        "North",
+                        "East",
+                        "West"
+                    ],
+
+                    datasets: [
+
+                        {
+
+                            label: "Active",
+
+                            data: [
+                                14,
+                                12,
+                                11,
+                                11
+                            ],
+
+                            backgroundColor:
+                                "#3C8583",
+
+                            borderRadius: 5
+
+                        },
+
+                        {
+
+                            label: "Idle",
+
+                            data: [
+                                2,
+                                2,
+                                1,
+                                2
+                            ],
+
+                            backgroundColor:
+                                "#A9B6B3",
+
+                            borderRadius: 5
+
+                        },
+
+                        {
+
+                            label: "Service",
+
+                            data: [
+                                1,
+                                1,
+                                2,
+                                1
+                            ],
+
+                            backgroundColor:
+                                "#C96D58",
+
+                            borderRadius: 5
+
+                        }
+
+                    ]
+
+                },
+
+                options: {
+
+                    responsive: true,
+
+                    maintainAspectRatio: false,
+
+                    plugins: {
+
+                        legend: {
+
+                            position: "bottom",
+
+                            labels: {
+
+                                usePointStyle: true,
+
+                                pointStyle: "circle",
+
+                                padding: 15,
+
+                                font: {
+                                    size: 10
+                                }
+
+                            }
+
+                        }
+
+                    },
+
+                    scales: {
+
+                        x: {
+
+                            stacked: true,
+
+                            grid: {
+                                display: false
+                            },
+
+                            border: {
+                                display: false
+                            }
+
+                        },
+
+                        y: {
+
+                            stacked: true,
+
+                            beginAtZero: true,
+
+                            grid: {
+                                color: "#E8EFEC"
+                            },
+
+                            border: {
+                                display: false
+                            },
+
+                            ticks: {
+                                stepSize: 5
+                            }
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+        );
+
+    }
+
+
+
+    /* =====================================================
+       ACTION BUTTONS
+    ====================================================== */
+
+    const scheduleButton =
+        document.querySelector(".primary-action");
+
+
+    if (scheduleButton) {
+
+        scheduleButton.addEventListener(
+            "click",
+            function () {
+
+                alert(
+                    "Route scheduling module is ready for integration."
+                );
+
+            }
+        );
+
+    }
+
+
+    const exportButton =
+        document.querySelector(".secondary-action");
+
+
+    if (exportButton) {
+
+        exportButton.addEventListener(
+            "click",
+            function () {
+
+                alert(
+                    "Report export functionality can be connected to your backend."
+                );
+
+            }
+        );
+
+    }
 
 });
