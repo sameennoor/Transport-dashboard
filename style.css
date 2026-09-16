@@ -1,0 +1,509 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    background-color: #f4f7fb;
+    color: #172033;
+}
+
+
+/* SIDEBAR */
+
+#sidebar {
+    width: 250px;
+    height: 100vh;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    background: #172033;
+    color: white;
+
+    transition: all 0.3s ease;
+
+    z-index: 1000;
+
+    box-shadow: 4px 0 20px rgba(23, 32, 51, 0.08);
+}
+
+
+/* Sidebar Header */
+
+.sidebar-header {
+    padding: 25px 20px;
+
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.sidebar-header h4 {
+    margin: 0;
+
+    font-weight: 600;
+    letter-spacing: 0.3px;
+}
+
+.sidebar-header i {
+    color: #14b8a6;
+    margin-right: 8px;
+}
+
+
+/* Sidebar Menu */
+
+.sidebar-menu {
+    list-style: none;
+
+    padding: 22px 12px;
+    margin: 0;
+}
+
+.sidebar-menu li {
+    margin-bottom: 7px;
+}
+
+.sidebar-menu li a {
+    display: flex;
+    align-items: center;
+
+    padding: 13px 15px;
+
+    color: #cbd5e1;
+
+    text-decoration: none;
+
+    border-radius: 8px;
+
+    transition: all 0.25s ease;
+}
+
+.sidebar-menu li a i {
+    width: 25px;
+
+    margin-right: 10px;
+
+    font-size: 15px;
+}
+
+
+/* Sidebar Hover */
+
+.sidebar-menu li a:hover {
+    background-color: #222d45;
+
+    color: white;
+
+    transform: translateX(4px);
+}
+
+
+/* Active Sidebar Item */
+
+.sidebar-menu li.active a {
+    background: #4f46e5;
+
+    color: white;
+
+    box-shadow: 0 5px 15px rgba(79, 70, 229, 0.25);
+}
+
+
+/* Active Icon */
+
+.sidebar-menu li.active a i {
+    color: #ffffff;
+}
+
+
+/* MAIN CONTENT */
+
+#mainContent {
+    margin-left: 250px;
+
+    min-height: 100vh;
+
+    transition: all 0.3s ease;
+}
+
+
+/* NAVBAR */
+
+.navbar {
+    height: 70px;
+
+    border-bottom: 1px solid #e8ecf3;
+}
+
+#menuBtn {
+    font-size: 20px;
+
+    color: #172033;
+}
+
+#menuBtn:hover {
+    background-color: #eef2ff;
+
+    color: #4f46e5;
+}
+
+
+/* SEARCH */
+
+.search-box {
+    display: flex;
+    align-items: center;
+
+    background-color: #f4f7fb;
+
+    border: 1px solid #e6eaf0;
+
+    border-radius: 9px;
+
+    padding: 8px 12px;
+
+    width: 240px;
+
+    transition: all 0.2s ease;
+}
+
+.search-box:focus-within {
+    border-color: #4f46e5;
+
+    background-color: white;
+
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.08);
+}
+
+.search-box i {
+    color: #94a3b8;
+
+    margin-right: 8px;
+}
+
+.search-box input {
+    border: none;
+
+    outline: none;
+
+    background: transparent;
+
+    width: 100%;
+
+    color: #172033;
+}
+
+.search-box input::placeholder {
+    color: #94a3b8;
+}
+
+
+/* PROFILE */
+
+.notification-icon {
+    font-size: 19px;
+
+    color: #64748b;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.notification-icon:hover {
+    color: #4f46e5;
+}
+
+.profile {
+    display: flex;
+    align-items: center;
+
+    gap: 8px;
+
+    font-weight: 500;
+
+    color: #334155;
+}
+
+.profile i {
+    font-size: 29px;
+
+    color: #4f46e5;
+}
+
+
+/* PAGE HEADING */
+
+.container-fluid h2 {
+    font-weight: 650;
+
+    color: #172033;
+}
+
+.container-fluid > .mb-4 p {
+    color: #64748b !important;
+}
+
+
+/* STAT CARDS */
+
+.stat-card {
+    background-color: #ffffff;
+
+    border: 1px solid #e9edf3;
+
+    border-radius: 13px;
+
+    padding: 22px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 18px;
+
+    box-shadow: 0 4px 16px rgba(23, 32, 51, 0.045);
+
+    transition: all 0.25s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-4px);
+
+    box-shadow: 0 10px 25px rgba(23, 32, 51, 0.09);
+
+    border-color: #dfe3ff;
+}
+
+
+/* Stat Icon */
+
+.stat-icon {
+    width: 55px;
+    height: 55px;
+
+    border-radius: 12px;
+
+    background-color: #eef2ff;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: #4f46e5;
+
+    font-size: 22px;
+}
+
+
+/* Different card icons */
+
+.col-md-6:nth-child(2) .stat-icon {
+    background-color: #e6fffb;
+    color: #14b8a6;
+}
+
+.col-md-6:nth-child(3) .stat-icon {
+    background-color: #f3e8ff;
+    color: #9333ea;
+}
+
+.col-md-6:nth-child(4) .stat-icon {
+    background-color: #fff7ed;
+    color: #f59e0b;
+}
+
+
+/* Stat Text */
+
+.stat-card p {
+    margin-bottom: 5px;
+
+    color: #64748b;
+
+    font-size: 13px;
+}
+
+.stat-card h3 {
+    margin: 0;
+
+    font-weight: 700;
+
+    color: #172033;
+}
+
+
+/* DASHBOARD CARDS */
+
+.dashboard-card {
+    background-color: #ffffff;
+
+    border: 1px solid #e9edf3;
+
+    border-radius: 13px;
+
+    padding: 20px;
+
+    box-shadow: 0 4px 16px rgba(23, 32, 51, 0.045);
+
+    height: 100%;
+}
+
+
+/* Card Header */
+
+.card-header-custom {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 20px;
+}
+
+.card-header-custom h5 {
+    margin-bottom: 5px;
+
+    font-weight: 600;
+
+    color: #172033;
+}
+
+.card-header-custom p {
+    margin: 0;
+
+    color: #64748b;
+
+    font-size: 13px;
+}
+
+
+/* CHART CONTAINER */
+
+.chart-container {
+    position: relative;
+
+    height: 280px;
+
+    width: 100%;
+}
+
+
+/* BUTTON */
+
+.btn-primary {
+    background-color: #4f46e5;
+
+    border-color: #4f46e5;
+
+    border-radius: 8px;
+
+    padding: 8px 15px;
+
+    transition: all 0.2s ease;
+}
+
+.btn-primary:hover {
+    background-color: #4338ca;
+
+    border-color: #4338ca;
+
+    transform: translateY(-1px);
+}
+
+
+/* TABLE */
+
+.table {
+    margin-bottom: 0;
+}
+
+.table thead th {
+    background-color: #f8fafc;
+
+    color: #64748b;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    border-bottom: 1px solid #e9edf3;
+
+    padding: 13px 10px;
+}
+
+.table tbody td {
+    padding: 14px 10px;
+
+    font-size: 14px;
+
+    color: #334155;
+
+    border-color: #eef1f5;
+}
+
+.table tbody tr {
+    transition: all 0.2s ease;
+}
+
+.table tbody tr:hover {
+    background-color: #f8faff;
+}
+
+
+/* BADGES */
+
+.badge {
+    padding: 7px 10px;
+
+    border-radius: 20px;
+
+    font-weight: 500;
+}
+
+
+/* RESPONSIVE */
+
+@media (max-width: 992px) {
+
+    #sidebar {
+        left: -250px;
+    }
+
+    #sidebar.show {
+        left: 0;
+    }
+
+    #mainContent {
+        margin-left: 0;
+    }
+}
+
+
+/* MOBILE */
+
+@media (max-width: 576px) {
+
+    .search-box {
+        display: none;
+    }
+
+    .profile span {
+        display: none;
+    }
+
+    .container-fluid {
+        padding: 15px !important;
+    }
+
+    .stat-card {
+        padding: 18px;
+    }
+
+    .dashboard-card {
+        padding: 15px;
+    }
+}
